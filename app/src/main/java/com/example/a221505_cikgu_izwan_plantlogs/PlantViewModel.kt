@@ -15,18 +15,12 @@ data class PlantData(
     val notes    : String = ""    // extra notes
 )
 
-//HealthData — holds 1 health check
 data class HealthData(
     val plantName : String = "",   // plant name checked
     val status    : String = "",   // Healthy / Unhealthy
     val symptom   : String = ""    // current symptoms
 )
 
-//TreeLogsViewModel — ONE shared ViewModel
-//Stores ALL data shared across all 6 screens:
-//plantList     → all logged plants (Screen 2, 3, 4)
-//healthList    → all health checks (Screen 5)
-//selectedPlant → plant tapped in list (Screen 3 → 4)
 class TreeLogsViewModel : ViewModel() {
 
     //Plant list
@@ -40,7 +34,7 @@ class TreeLogsViewModel : ViewModel() {
         if (index in plantList.indices) plantList.removeAt(index)
     }
 
-    //Selected plant — Screen 3 taps → Screen 4 reads
+    //Selected plant
     var selectedPlant by mutableStateOf<PlantData?>(null)
         private set
 
