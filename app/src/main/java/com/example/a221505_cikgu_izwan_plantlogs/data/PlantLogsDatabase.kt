@@ -5,12 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-// ── ROOM DATABASE ─────────────────────────────────────────
-// @Database tells Room this is the database class
-// entities = list of ALL tables in this database
-// version = 1 — increase this number when you change
-//           the schema (add/remove columns or tables)
-// exportSchema = false — no need to export schema file
 @Database(
     entities = [PlantEntity::class, HealthEntity::class],
     version  = 1,
@@ -18,15 +12,9 @@ import androidx.room.RoomDatabase
 )
 abstract class PlantLogsDatabase : RoomDatabase() {
 
-    // Room generates these DAO implementations automatically
     abstract fun plantDao()  : PlantDao
     abstract fun healthDao() : HealthDao
 
-    // SINGLETON PATTERN
-    // companion object = shared instance for the whole app
-    // Only ONE database instance ever created
-    // synchronized = thread-safe — prevents two threads
-    //               creating two instances at the same time
     companion object {
         @Volatile
         private var INSTANCE: PlantLogsDatabase? = null
@@ -37,7 +25,7 @@ abstract class PlantLogsDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     PlantLogsDatabase::class.java,
-                    "plantlogs_database"   // database file name
+                    "plantlogs_database"
                 ).build()
                 INSTANCE = instance
                 instance

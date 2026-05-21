@@ -2,27 +2,18 @@ package com.example.a221505_cikgu_izwan_plantlogs.data
 
 import kotlinx.coroutines.flow.Flow
 
-// ── REPOSITORY ────────────────────────────────────────────
-// Repository sits between ViewModel and DAO
-// ViewModel never talks to DAO directly — always via Repository
-// This keeps ViewModel clean and easy to test
-//
+//REPO
+
 // Pattern:
-//   UI → ViewModel → Repository → DAO → Room Database
-//   UI ← ViewModel ← Repository ← DAO ← Room Database
+//   UI > ViewModel > Repository > DAO > Room Database
+//   UI < ViewModel < Repository < DAO < Room Database
 class PlantLogsRepository(
     private val plantDao  : PlantDao,
     private val healthDao : HealthDao
 ) {
 
-    // ── Plant operations ──────────────────────────────────
-
-    // allPlants is a Flow — ViewModel collects it as StateFlow
-    // UI automatically updates when database changes
     val allPlants: Flow<List<PlantEntity>> = plantDao.getAll()
 
-    // suspend = runs on background thread (not main/UI thread)
-    // Room does NOT allow database operations on main thread
     suspend fun insertPlant(plant: PlantEntity) {
         plantDao.insert(plant)
     }
@@ -39,7 +30,6 @@ class PlantLogsRepository(
         plantDao.deleteById(id)
     }
 
-    // ── Health check operations ───────────────────────────
 
     val allHealthChecks: Flow<List<HealthEntity>> = healthDao.getAll()
 

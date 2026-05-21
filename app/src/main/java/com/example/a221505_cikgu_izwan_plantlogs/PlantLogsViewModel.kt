@@ -14,22 +14,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-// ── VIEWMODEL ─────────────────────────────────────────────
-// Upgraded from Lab 4:
-// Lab 4 → mutableStateListOf (in-memory only, lost on close)
-// Lab 5 → StateFlow from Room (persistent, survives close)
-//
-// viewModelScope.launch = runs suspend functions safely
-// on background thread without blocking the UI
+
 class PlantLogsViewModel(
     private val repository: PlantLogsRepository
 ) : ViewModel() {
 
-    // ── Plant list — from Room via StateFlow ──────────────
-    // stateIn converts Flow<List> to StateFlow<List>
-    // StateFlow = like mutableStateOf but for coroutines
-    // UI reads plantList and updates automatically when
-    // Room database changes
+
     val plantList: StateFlow<List<PlantEntity>> =
         repository.allPlants.stateIn(
             scope         = viewModelScope,
@@ -37,7 +27,7 @@ class PlantLogsViewModel(
             initialValue  = emptyList()
         )
 
-    // ── Health list — from Room via StateFlow ─────────────
+
     val healthList: StateFlow<List<HealthEntity>> =
         repository.allHealthChecks.stateIn(
             scope         = viewModelScope,
@@ -45,14 +35,14 @@ class PlantLogsViewModel(
             initialValue  = emptyList()
         )
 
-    // ── Selected plant (Screen 3 → Screen 4) ─────────────
+
     var selectedPlant by mutableStateOf<PlantEntity?>(null)
         private set
 
     fun selectPlant(plant: PlantEntity) { selectedPlant = plant }
     fun clearSelectedPlant()            { selectedPlant = null  }
 
-    // ── Edit mode ─────────────────────────────────────────
+
     var editingPlant  by mutableStateOf<PlantEntity?>(null)
         private set
     var editingHealth by mutableStateOf<HealthEntity?>(null)
@@ -63,9 +53,6 @@ class PlantLogsViewModel(
     fun clearEditPlant()                     { editingPlant  = null  }
     fun clearEditHealth()                    { editingHealth = null  }
 
-    // ── Plant operations ──────────────────────────────────
-    // viewModelScope.launch = runs on background thread
-    // Room CANNOT run on main thread — must use coroutines
 
     fun addPlant(name: String, species: String, location: String, notes: String) {
         viewModelScope.launch {
@@ -89,7 +76,6 @@ class PlantLogsViewModel(
         }
     }
 
-    // ── Health check operations ───────────────────────────
 
     fun addHealthCheck(plantName: String, status: String, symptom: String) {
         viewModelScope.launch {
@@ -114,10 +100,7 @@ class PlantLogsViewModel(
     }
 }
 
-// ── VIEWMODEL FACTORY ─────────────────────────────────────
-// Factory needed because our ViewModel has a constructor
-// parameter (repository). Compose's viewModel() function
-// cannot pass parameters automatically — Factory does it.
+
 class PlantLogsViewModelFactory(
     private val repository: PlantLogsRepository
 ) : ViewModelProvider.Factory {

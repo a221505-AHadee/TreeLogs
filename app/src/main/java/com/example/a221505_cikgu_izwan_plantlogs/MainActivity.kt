@@ -38,7 +38,7 @@ import com.example.a221505_cikgu_izwan_plantlogs.data.HealthEntity
 import com.example.a221505_cikgu_izwan_plantlogs.data.PlantEntity
 import com.example.a221505_cikgu_izwan_plantlogs.ui.theme.*
 
-// ── ROUTES ───────────────────────────────────────────────
+// ROUTES
 object Routes {
     const val HOME         = "home"
     const val ADD_PLANT    = "add_plant"
@@ -48,7 +48,6 @@ object Routes {
     const val TIPS         = "tips"
 }
 
-// ── MAIN ACTIVITY ─────────────────────────────────────────
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,13 +63,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// ── ROOT — NavHost + ViewModel with Room ──────────────────
+//NavHost + ViewModel
 @Composable
 fun PlantLogsApp() {
     val navController = rememberNavController()
 
-    // Lab 5 — ViewModel now uses Factory to inject Repository
-    // Application class provides the repository
     val viewModel: PlantLogsViewModel = viewModel(
         factory = PlantLogsViewModelFactory(
             (androidx.compose.ui.platform.LocalContext.current
@@ -88,7 +85,6 @@ fun PlantLogsApp() {
     }
 }
 
-// ── REUSABLE — TOP BAR ────────────────────────────────────
 @Composable
 fun TopBar(title: String, navController: NavController) {
     Row(modifier = Modifier.fillMaxWidth().background(PLHeroGreen)
@@ -101,7 +97,6 @@ fun TopBar(title: String, navController: NavController) {
     }
 }
 
-// ── REUSABLE — FEATURE BUTTON ─────────────────────────────
 @Composable
 fun FeatureBtn(label: String, sublabel: String, icon: ImageVector, isFilled: Boolean, onClick: () -> Unit) {
     Card(modifier = Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium,
@@ -131,7 +126,6 @@ fun FeatureBtn(label: String, sublabel: String, icon: ImageVector, isFilled: Boo
     }
 }
 
-// ── REUSABLE — DETAIL ROW ─────────────────────────────────
 @Composable
 fun DetailRow(label: String, value: String) {
     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
@@ -141,7 +135,6 @@ fun DetailRow(label: String, value: String) {
     }
 }
 
-// ── REUSABLE — BOTTOM NAV ITEM ────────────────────────────
 @Composable
 fun BotNavItem(label: String, icon: ImageVector, isActive: Boolean, onClick: () -> Unit = {}) {
     Column(modifier = Modifier.clickable { onClick() },
@@ -156,17 +149,12 @@ fun BotNavItem(label: String, icon: ImageVector, isActive: Boolean, onClick: () 
     }
 }
 
-// ════════════════════════════════════════════════════════
-//  S1 — HOME SCREEN
-// ════════════════════════════════════════════════════════
 @Composable
 fun HomeScreen(navController: NavController, viewModel: PlantLogsViewModel) {
 
     var userName    by remember { mutableStateOf("") }
     var displayName by remember { mutableStateOf("ANON") }
 
-    // Lab 5 — collectAsState() converts StateFlow to Compose State
-    // UI automatically redraws when Room database changes
     val plants       by viewModel.plantList.collectAsState()
     val healthChecks by viewModel.healthList.collectAsState()
 
@@ -218,7 +206,6 @@ fun HomeScreen(navController: NavController, viewModel: PlantLogsViewModel) {
                 }
             }
 
-            // Lab 5 — stats now read from Room via StateFlow
             Row(modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Card(modifier = Modifier.weight(1f), shape = MaterialTheme.shapes.medium,
@@ -280,11 +267,6 @@ fun HomeScreen(navController: NavController, viewModel: PlantLogsViewModel) {
     }
 }
 
-// ════════════════════════════════════════════════════════
-//  S2 — ADD PLANT SCREEN
-//  Lab 5 — calls viewModel.addPlant() which saves to Room
-//  Edit mode pre-fills from PlantEntity
-// ════════════════════════════════════════════════════════
 @Composable
 fun AddPlantScreen(navController: NavController, viewModel: PlantLogsViewModel) {
 
@@ -383,11 +365,6 @@ fun AddPlantScreen(navController: NavController, viewModel: PlantLogsViewModel) 
     }
 }
 
-// ════════════════════════════════════════════════════════
-//  S3 — PLANT LIST SCREEN
-//  Lab 5 — reads from Room StateFlow
-//  Delete removes from Room database permanently
-// ════════════════════════════════════════════════════════
 @Composable
 fun PlantListScreen(navController: NavController, viewModel: PlantLogsViewModel) {
 
@@ -505,10 +482,6 @@ fun PlantListScreen(navController: NavController, viewModel: PlantLogsViewModel)
     }
 }
 
-// ════════════════════════════════════════════════════════
-//  S4 — PLANT DETAIL SCREEN
-//  Reads selectedPlant (PlantEntity) from ViewModel
-// ════════════════════════════════════════════════════════
 @Composable
 fun PlantDetailScreen(navController: NavController, viewModel: PlantLogsViewModel) {
 
@@ -581,10 +554,6 @@ fun PlantDetailScreen(navController: NavController, viewModel: PlantLogsViewMode
     }
 }
 
-// ════════════════════════════════════════════════════════
-//  S5 — HEALTH CHECK SCREEN
-//  Lab 5 — saves to Room, reads from StateFlow
-// ════════════════════════════════════════════════════════
 @Composable
 fun HealthCheckScreen(navController: NavController, viewModel: PlantLogsViewModel) {
 
@@ -747,9 +716,6 @@ fun HealthCheckScreen(navController: NavController, viewModel: PlantLogsViewMode
     }
 }
 
-// ════════════════════════════════════════════════════════
-//  S6 — TIPS SCREEN (unchanged from Project 1)
-// ════════════════════════════════════════════════════════
 @Composable
 fun TipsScreen(navController: NavController) {
 
@@ -854,14 +820,13 @@ fun TipsScreen(navController: NavController) {
     }
 }
 
-// ── PREVIEW ───────────────────────────────────────────────
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewPlantLogs() {
     PlantLogTheme {
         Surface(modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background) {
-            // Preview shows blank — needs Application context for Room
+
         }
     }
 }
