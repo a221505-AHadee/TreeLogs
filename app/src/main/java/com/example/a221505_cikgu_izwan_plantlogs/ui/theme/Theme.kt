@@ -1,51 +1,43 @@
 package com.example.a221505_cikgu_izwan_plantlogs.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.shape.RoundedCornerShape
 
+// ── COLOUR SCHEMES ────────────────────────────────────────
 private val LightColorScheme = lightColorScheme(
-    primary             = Green40,
-    onPrimary           = Color.White,
-    primaryContainer    = GreenContainer90,
-    onPrimaryContainer  = Green10,
-    secondary           = Teal40,
-    onSecondary         = Color.White,
-    secondaryContainer  = Teal90,
-    onSecondaryContainer = Teal10,
-    background          = Neutral99,
-    onBackground        = Neutral10,
-    surface             = Neutral99,
-    onSurface           = Neutral10,
-    surfaceVariant      = NeutralVariant90,
-    onSurfaceVariant    = NeutralVariant30,
-    outline             = NeutralVariant50,
-    outlineVariant      = NeutralVariant80,
+    primary          = Green40,
+    onPrimary        = PLWhite,
+    primaryContainer = PLLight,
+    onPrimaryContainer = PLTextDark,
+    secondary        = GreenGrey40,
+    onSecondary      = PLWhite,
+    background       = Neutral99,
+    onBackground     = PLTextDark,
+    surface          = PLWhite,
+    onSurface        = PLTextDark,
+    error            = androidx.compose.ui.graphics.Color(0xFFB00020)
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary             = DarkGreen80,
-    onPrimary           = DarkGreen20,
-    primaryContainer    = DarkGreenContainer30,
-    onPrimaryContainer  = DarkGreenContainer90,
-    background          = DarkNeutral10,
-    onBackground        = DarkNeutral90,
-    surface             = DarkNeutral10,
-    onSurface           = DarkNeutral90,
+    primary          = DarkBlue80,
+    onPrimary        = DarkNavy10,
+    background       = DarkNavy10,
+    surface          = androidx.compose.ui.graphics.Color(0xFF1A1F2E),
+    onSurface        = DarkBlue80
 )
 
-
+// ── TYPOGRAPHY ────────────────────────────────────────────
 val PlantLogTypography = Typography(
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -55,19 +47,19 @@ val PlantLogTypography = Typography(
     ),
     titleMedium = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Bold,
         fontSize   = 18.sp,
         lineHeight = 24.sp
     ),
     titleSmall = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Bold,
         fontSize   = 16.sp,
         lineHeight = 22.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontSize   = 15.sp,
         lineHeight = 22.sp
     ),
@@ -91,16 +83,18 @@ val PlantLogTypography = Typography(
     )
 )
 
+// ── SHAPES ────────────────────────────────────────────────
 val PlantLogShapes = Shapes(
     small  = RoundedCornerShape(8.dp),
     medium = RoundedCornerShape(16.dp),
-    large  = RoundedCornerShape(18.dp)
+    large  = RoundedCornerShape(24.dp)
 )
 
+// ── THEME ─────────────────────────────────────────────────
 @Composable
 fun PlantLogTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content  : @Composable () -> Unit
+    content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
