@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1036959495024",
+    "project_id": "plantlogs-a7eec",
+    "storage_bucket": "plantlogs-a7eec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036959495024:android:8a11690390031ba234d5b5",
+        "android_client_info": {
+          "package_name": "com.example.a221505_cikgu_izwan_plantlogs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOrLPymdIfpTxVOKpltqezZpLI4o9lsdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+// ROOM DATABASE
 @Database(
-    entities = [PlantEntity::class, HealthEntity::class],
-    version  = 1,
+    entities     = [PlantEntity::class, HealthEntity::class],
+    version      = 4,
     exportSchema = false
 )
 abstract class PlantLogsDatabase : RoomDatabase() {
@@ -20,13 +21,14 @@ abstract class PlantLogsDatabase : RoomDatabase() {
         private var INSTANCE: PlantLogsDatabase? = null
 
         fun getDatabase(context: Context): PlantLogsDatabase {
-            // Return existing instance if already created
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     PlantLogsDatabase::class.java,
                     "plantlogs_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

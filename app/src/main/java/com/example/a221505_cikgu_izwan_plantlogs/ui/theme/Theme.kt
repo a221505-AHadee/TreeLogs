@@ -13,31 +13,41 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.graphics.Color
 
-// ── COLOUR SCHEMES ────────────────────────────────────────
+// COLOUR SCHEMES
 private val LightColorScheme = lightColorScheme(
-    primary          = Green40,
-    onPrimary        = PLWhite,
-    primaryContainer = PLLight,
+    primary            = Green40,
+    onPrimary          = PLWhite,
+    primaryContainer   = PLLight,
     onPrimaryContainer = PLTextDark,
-    secondary        = GreenGrey40,
-    onSecondary      = PLWhite,
-    background       = Neutral99,
-    onBackground     = PLTextDark,
-    surface          = PLWhite,
-    onSurface        = PLTextDark,
-    error            = androidx.compose.ui.graphics.Color(0xFFB00020)
+    secondary          = GreenGrey40,
+    onSecondary        = PLWhite,
+    background         = Neutral99,
+    onBackground       = PLTextDark,
+    surface            = PLWhite,
+    onSurface          = PLTextDark,
+    onSurfaceVariant   = PLTextMid,
+    error              = Color(0xFFB00020)
 )
 
+// DARK MODE
 private val DarkColorScheme = darkColorScheme(
-    primary          = DarkBlue80,
-    onPrimary        = DarkNavy10,
-    background       = DarkNavy10,
-    surface          = androidx.compose.ui.graphics.Color(0xFF1A1F2E),
-    onSurface        = DarkBlue80
+    primary            = DarkGreen80,
+    onPrimary          = DarkNavy10,
+    primaryContainer   = Color(0xFF1F3A30),
+    onPrimaryContainer = DarkGreen80,
+    secondary          = PLAccent,
+    onSecondary        = DarkNavy10,
+    background         = DarkNavy10,
+    onBackground       = DarkOnSurface,
+    surface            = DarkSurface,
+    onSurface          = DarkOnSurface,
+    onSurfaceVariant   = PLTextMidDarkMode,
+    error              = Color(0xFFFF8A80)
 )
 
-// ── TYPOGRAPHY ────────────────────────────────────────────
+// TYPOGRAPHY
 val PlantLogTypography = Typography(
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -83,14 +93,14 @@ val PlantLogTypography = Typography(
     )
 )
 
-// ── SHAPES ────────────────────────────────────────────────
+// SHAPES
 val PlantLogShapes = Shapes(
     small  = RoundedCornerShape(8.dp),
     medium = RoundedCornerShape(16.dp),
     large  = RoundedCornerShape(24.dp)
 )
 
-// ── THEME ─────────────────────────────────────────────────
+// THEME
 @Composable
 fun PlantLogTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

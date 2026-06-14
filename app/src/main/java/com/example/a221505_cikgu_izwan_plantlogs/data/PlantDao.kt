@@ -8,17 +8,19 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
-
+// PLANT DAO
 @Dao
 interface PlantDao {
-
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(plant: PlantEntity)
 
-
     @Query("SELECT * FROM plants ORDER BY id DESC")
     fun getAll(): Flow<List<PlantEntity>>
+
+    // find by QR
+    @Query("SELECT * FROM plants WHERE plantCode = :code LIMIT 1")
+    suspend fun getByPlantCode(code: String): PlantEntity?
 
     @Delete
     suspend fun delete(plant: PlantEntity)
@@ -28,4 +30,8 @@ interface PlantDao {
 
     @Query("DELETE FROM plants WHERE id = :id")
     suspend fun deleteById(id: Int)
+
+    // share to community
+    @Query("SELECT * FROM plants WHERE sharedToCommunity = 1")
+    fun getSharedPlants(): Flow<List<PlantEntity>>
 }

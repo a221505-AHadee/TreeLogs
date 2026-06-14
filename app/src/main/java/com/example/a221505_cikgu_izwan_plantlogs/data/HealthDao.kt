@@ -8,26 +8,20 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface HealthDao {
-
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(health: HealthEntity)
 
-
     @Query("SELECT * FROM health_checks ORDER BY id DESC")
     fun getAll(): Flow<List<HealthEntity>>
-
 
     @Delete
     suspend fun delete(health: HealthEntity)
 
-
     @Update
     suspend fun update(health: HealthEntity)
-
 
     @Query("DELETE FROM health_checks WHERE id = :id")
     suspend fun deleteById(id: Int)
